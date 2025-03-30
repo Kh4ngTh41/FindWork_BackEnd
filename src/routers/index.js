@@ -1,8 +1,8 @@
-const AuthenticateRouter = require('./AuthenticateRouter')
-const FreelancerRouter = require('./FreelancerRouter')
-const EmployerRouter = require('./EmployerRouter')
+const RegisterRouter = require('./RegisterRouter')
+const EmployerRouter = require('./routersLayer2/EmployerRouter')
+
 const routes = (app) =>{
-    app.use('/api/auth', AuthenticateRouter)
+    app.use('/api/register', RegisterRouter)
     
 }
 

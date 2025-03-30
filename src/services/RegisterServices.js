@@ -1,7 +1,7 @@
 const Freelancer = require('../models/freelancer');
 const Employer = require('../models/employer');
 const bcrypt = require('bcrypt');
-const freelancer = require('../models/freelancer');
+
 
 const RegisterFreelancer = (FreelancerData) => {
   return new Promise(async (resolve, reject) => {
@@ -40,39 +40,8 @@ const RegisterEmployer = (EmployerData) => {
   });
 };
 
-const checkLogin = async (username, password) => {
-  try {
-    // Tìm người dùng theo tên người dùng (hoặc email)
-    let user = await Freelancer.findOne({ username });
-
-    if (!user) {
-      const companyName = username;
-      user = await Employer.findOne({ companyName });
-      if (!user) {
-        throw new Error('Invalid username ');
-      }
-      else {
-        if (password !== user.companyPassword) {
-          throw new Error('Invalid password');
-        }
-      }
-    }
-    else if (user) {
-      console.log('123');
-      if (password !== user.password) {
-        throw new Error('Invalid username or password');
-      }
-    }
-
-    // Trả về thông tin người dùng (bao gồm cả mật khẩu)
-    return user.toObject(); // Hoặc bạn có thể trả về token nếu bạn sử dụng JWT
-  } catch (e) {
-    throw e; // Ném lỗi để xử lý ở nơi gọi hàm này
-  }
-};
 
 module.exports = {
   RegisterEmployer,
-  RegisterFreelancer,
-  checkLogin,
+  RegisterFreelancer
 };
