@@ -1,5 +1,5 @@
-const Freelancer = require('../models/freelancer');
-const Employer = require('../models/employer');
+const Freelancer = require('../../../models/freelancer');
+const Employer = require('../../../models/employer');
 const bcrypt = require('bcrypt');
 
 

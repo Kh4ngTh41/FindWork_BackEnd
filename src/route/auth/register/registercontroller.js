@@ -1,4 +1,4 @@
-const RegisterServices = require('../services/RegisterServices.js')
+const RegisterServices = require('./registerservices')
 
 const RegisterEmployer = async (req, res) => {
   console.log('body req', req.body)
