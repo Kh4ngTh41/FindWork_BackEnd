@@ -1,7 +1,7 @@
-const express = require("express")
+const express = require("express");
 const router = express.Router();
-const FreelancerController = require('./freelancercontroller')
+const FreelancerController = require("./freelancercontroller");
 
-router.post('/applyjob',FreelancerController.ApplyJob)
+router.post("/applyjob", FreelancerController.ApplyJob);
 
-module.exports = router
+module.exports = router;

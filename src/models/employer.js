@@ -1,9 +1,9 @@
 // models/employer.js
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const employerSchema = new mongoose.Schema({
   companyName: { type: String, required: true, unique: true }, // Tên công ty
-  companyPassword:{type: String, required: true },
+  companyPassword: { type: String, required: true },
   companyLogo: { type: String }, // Đường dẫn tới logo công ty (nếu có)
   contactEmail: { type: String, required: true, unique: true }, // Email của nhà tuyển dụng
   phoneNumber: { type: String, required: true }, // Số điện thoại liên hệ
@@ -17,6 +17,6 @@ const employerSchema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now }, // Thời gian tạo hồ sơ
 });
 
-const employer = mongoose.model('employer', employerSchema);
+const employer = mongoose.model("employer", employerSchema);
 
 module.exports = employer;

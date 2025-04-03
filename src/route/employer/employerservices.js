@@ -1,5 +1,4 @@
-
-const Job = require('../../models/job');
+const Job = require("../../models/job");
 
 const PostJob = (JobData) => {
   return new Promise(async (resolve, reject) => {
@@ -8,19 +7,18 @@ const PostJob = (JobData) => {
       await newJob.save();
 
       const savedData = await newJob.save();
-      console.log('Saved data:', savedData);
+      console.log("Saved data:", savedData);
 
-      console.log('sucess');
+      console.log("sucess");
 
       resolve("Created:", newJob);
     } catch (e) {
-      console.log('fail1');
+      console.log("fail1");
       reject(e);
     }
   });
 };
 
-
 module.exports = {
-  PostJob
+  PostJob,
 };
