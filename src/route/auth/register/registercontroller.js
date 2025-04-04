@@ -13,9 +13,7 @@ const RegisterEmployer = async (req, res) => {
       location,
     } = req.body;
 
-    console.log("em");
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const isCheckMail = emailRegex.test(contactEmail);
+    
     if (
       !companyName ||
       !companyPassword ||
@@ -30,7 +28,20 @@ const RegisterEmployer = async (req, res) => {
         message: "The input is required",
       });
     }
-    console.log("isCheckEmail", isCheckMail);
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const isCheckMail = emailRegex.test(contactEmail);
+    
+    if(!isCheckMail)
+    {
+      console.log("isCheckEmail", isCheckMail);
+      return res.status(404).json({
+        message: "invalid email",
+    })
+    }
+    
+
+    
     const response = await RegisterServices.RegisterEmployer(req.body);
     return res.status(200).json(response);
   } catch (e) {
