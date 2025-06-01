@@ -22,6 +22,7 @@ const createJob = async (req, res) => {
       experienceLevel,
       location,
       skills,
+      category,
     } = req.body;
 
     // Log field values for debugging
@@ -34,6 +35,7 @@ const createJob = async (req, res) => {
       experienceLevel: experienceLevel,
       location: location,
       skills: skills,
+      category: category,
     });
 
     // Validate required fields
@@ -45,7 +47,8 @@ const createJob = async (req, res) => {
       !timeEstimation ||
       !experienceLevel ||
       !location ||
-      !skills
+      !skills ||
+      !category
     ) {
       return res.status(400).json({
         status: "Error",
@@ -59,6 +62,7 @@ const createJob = async (req, res) => {
           experienceLevel: !experienceLevel,
           location: !location,
           skills: !skills,
+          category: !category,
         },
       });
     }
@@ -89,6 +93,7 @@ const createJob = async (req, res) => {
       experienceLevel,
       location,
       skills,
+      category,
       employerId: req.user._id,
     };
 
@@ -123,6 +128,7 @@ const getJobs = async (req, res) => {
       experienceLevel,
       timeEstimation,
       skills,
+      category,
       sort = "newest",
     } = req.query;
 
@@ -136,6 +142,7 @@ const getJobs = async (req, res) => {
       experienceLevel,
       timeEstimation,
       skills: skills ? skills.split(",") : undefined,
+      category,
       sort,
     };
 

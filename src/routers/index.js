@@ -1,10 +1,12 @@
-// Import routers
+const express = require("express");
+const router = express.Router();
 const EmployerRouter = require("./EmployerRouter");
 const FreelancerRouter = require("./FreelancerRouter");
 const JobRouter = require("./JobRouter");
 const ChatRouter = require("./ChatRouter");
 const GoogleAuthRouter = require("./GoogleAuthRouter");
 const FacebookAuthRouter = require("./FacebookAuthRouter");
+
 // Define routes
 const routes = (app) => {
   app.use("/api/employer", EmployerRouter);

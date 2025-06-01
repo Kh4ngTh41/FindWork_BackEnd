@@ -33,6 +33,7 @@ class JobService {
         experienceLevel,
         timeEstimation,
         skills,
+        category,
         sort = "newest",
       } = filters;
 
@@ -60,6 +61,10 @@ class JobService {
 
       if (timeEstimation) {
         matchStage.timeEstimation = timeEstimation;
+      }
+
+      if (category) {
+        matchStage.category = category;
       }
 
       // Filter by salary range
@@ -127,6 +132,7 @@ class JobService {
               experienceLevel: 1,
               timeEstimation: 1,
               skills: 1,
+              category: 1,
               status: 1,
               pay: 1,
               createdAt: 1,
