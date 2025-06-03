@@ -298,7 +298,7 @@ class JobService {
     return response.data.access_token;
   }
 
-  static async createOrder(jobId) {
+  static async createOrder(jobId, freelancerId) {
     const application = await Application.findOne({
       jobId,
       freelancerId,
