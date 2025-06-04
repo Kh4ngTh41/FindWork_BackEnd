@@ -2,6 +2,8 @@ const Employer = require("../models/Employer");
 const Freelancer = require("../models/Freelancer");
 const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
+const JSEncrypt = require("jsencrypt").default;
+const CryptoJS = require("crypto-js");
 dotenv.config({ path: "./src/.env" });
 
 class GoogleAuthServices {
@@ -29,6 +31,7 @@ class GoogleAuthServices {
 
           const crypt = new JSEncrypt({ default_key_size: 2048 });
           crypt.getKey();
+          
           const publicKey = crypt.getPublicKey();
           const privateKey = crypt.getPrivateKey();
           const password = uniqueCompanyName;
