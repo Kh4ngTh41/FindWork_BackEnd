@@ -22,6 +22,7 @@ function initSocket(server) {
     // Trong file socket.js hoặc nơi bạn xử lý socket
     socket.on("webrtc-signal", ({ to, data }) => {
       console.log("Nhận tín hiệu video call:", { to, data });
+      console.log(`Socket ID: ${socket.userID}`); // In ra socket.id để kiểm tra
       // Lấy userId từ socket thay vì socket.id
       const userId = socket.userId; // Giả sử bạn đã lưu userId vào socket khi user kết nối
       io.to(String(to)).emit("webrtc-signal", {
