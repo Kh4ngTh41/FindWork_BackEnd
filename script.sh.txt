@@ -1,0 +1,31 @@
+#!/bin/bash
+
+echo "Analyzing Git contributions (lines added/deleted) per author..."
+echo "--------------------------------------------------------"
+
+# Get a unique list of all authors from the Git history
+# Using '%aN' for author name and '%aE' for author email to distinguish
+# people with the same name but different emails, or to group by email.
+# Choose '%aN' if you want to group by name, '%aE' if you want to group by email.
+# For simplicity, let's stick with '%aN' (Author Name) first.
+git log --format='%aN' | sort -u | while read AUTHOR; do
+    echo "Author: $AUTHOR"
+    # Get numstat for all commits by this author and sum up the lines
+    git log --author="$AUTHOR" --pretty=tformat: --numstat | awk \
+        '{
+            added_lines += $1;    # Sum the first column (additions)
+            deleted_lines += $2;  # Sum the second column (deletions)
+        }
+        END {
+            # Print the total added, deleted, and net change for the author
+            print "  Lines Added:   " added_lines;
+            print "  Lines Deleted: " deleted_lines;
+            print "  Net Lines:     " added_lines - deleted_lines;
+            print "--------------------------------------------------------"
+            # Reset counters for the next author (important inside the loop)
+            added_lines = 0;
+            deleted_lines = 0;
+        }'
+done
+
+echo "Analysis complete."

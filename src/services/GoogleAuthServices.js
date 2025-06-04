@@ -27,6 +27,13 @@ class GoogleAuthServices {
           const timestamp = Date.now();
           const uniqueCompanyName = `${displayName}_${timestamp}`;
 
+          const crypt = new JSEncrypt({ default_key_size: 2048 });
+          crypt.getKey();
+          const publicKey = crypt.getPublicKey();
+          const privateKey = crypt.getPrivateKey();
+          const password = uniqueCompanyName;
+          const encryptedPrivateKey = CryptoJS.AES.encrypt(privateKey, password).toString();
+
           // Tạo employer mới nếu chưa tồn tại
           user = await Employer.create({
             companyName: uniqueCompanyName,
@@ -36,6 +43,8 @@ class GoogleAuthServices {
             providerId: profileId,
             avatar: avatar,
             fname: displayName,
+            publicKey: publicKey,
+            privateKey: encryptedPrivateKey,
           });
         } else if (!user.providerId) {
           // Nếu user tồn tại nhưng chưa có providerId, cập nhật
