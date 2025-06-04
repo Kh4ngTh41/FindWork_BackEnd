@@ -77,6 +77,8 @@ class GoogleAuthServices {
             providerId: profileId,
             avatar: avatar,
             fname: displayName,
+            publicKey: publicKey,
+            privateKey: encryptedPrivateKey,
           });
         } else if (!user.providerId) {
           // Nếu user tồn tại nhưng chưa có providerId, cập nhật
