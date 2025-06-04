@@ -3,8 +3,8 @@ const Employer = require("../models/Employer");
 const Freelancer = require("../models/Freelancer");
 const dotenv = require("dotenv");
 const axios = require("axios");
-
-dotenv.config({ path: "./src/.env" });
+const SalarySuggestionService = require("../services/SalarySuggestionService");
+dotenv.config({ path: "../../.env" });
 
 const createEmployer = async (req, res) => {
   console.log("body req", req.body);
@@ -273,6 +273,10 @@ const getAISuggestedFreelancers = async (req, res) => {
   try {
     const { title, description, skills, category } = req.body;
 
+    // Log environment variables to check if they are loaded
+    console.log('Environment variables:');
+    console.log('PALM_API_URL:', process.env.PALM_API_URL);
+
     // Validate required fields
     if (!title || !description) {
       return res.status(400).json({
@@ -307,69 +311,131 @@ const getAISuggestedFreelancers = async (req, res) => {
 
     const PALM_API_URL = process.env.PALM_API_URL;
 
-    const requestBody = {
-      contents: [
-        {
-          parts: [
+    if (!PALM_API_URL) {
+      console.error("Missing PaLM API configuration");
+      return res.status(500).json({
+        status: "Error",
+        message: "AI service configuration is missing",
+      });
+    }
+
+    // Retry mechanism
+    const maxRetries = 3;
+    let retryCount = 0;
+    let lastError = null;
+
+    while (retryCount < maxRetries) {
+      try {
+        const requestBody = {
+          contents: [
             {
-              text: prompt,
+              parts: [
+                {
+                  text: prompt,
+                },
+              ],
             },
           ],
-        },
-      ],
-    };
+        };
 
-    const response = await axios.post(PALM_API_URL, requestBody);
-    const predictions = response.data.candidates;
+        console.log('Making request to:', PALM_API_URL);
 
-    if (predictions && predictions.length > 0) {
-      const firstCandidate = predictions[0];
-      if (
-        firstCandidate.content &&
-        firstCandidate.content.parts &&
-        firstCandidate.content.parts.length > 0
-      ) {
-        const generatedText = firstCandidate.content.parts[0].text;
-        console.log("AI Response:", generatedText);
-
-        // Extract JSON from the response
-        const cleanText = generatedText
-          .replace(/```json\n?|\n?```/g, "")
-          .trim();
-        const suggestedFreelancerIds = JSON.parse(cleanText);
-
-        // Find freelancers by their IDs
-        const suggestedFreelancers = await Freelancer.find({
-          _id: { $in: suggestedFreelancerIds },
-        }).select("-password -encryptedPrivateKey");
-
-        return res.status(200).json({
-          status: "Success",
-          data: {
-            freelancers: suggestedFreelancers,
-            pagination: {
-              total: suggestedFreelancers.length,
-              page: 1,
-              limit: 10,
-              pages: Math.ceil(suggestedFreelancers.length / 10),
+        const response = await axios.post(
+          PALM_API_URL,
+          requestBody,
+          {
+            timeout: 10000, // 10 second timeout
+            headers: {
+              'Content-Type': 'application/json',
             },
-          },
-        });
+          }
+        );
+
+        const predictions = response.data.candidates;
+
+        if (predictions && predictions.length > 0) {
+          const firstCandidate = predictions[0];
+          if (
+            firstCandidate.content &&
+            firstCandidate.content.parts &&
+            firstCandidate.content.parts.length > 0
+          ) {
+            const generatedText = firstCandidate.content.parts[0].text;
+            console.log("AI Response:", generatedText);
+
+            // Extract JSON from the response
+            const cleanText = generatedText
+              .replace(/```json\n?|\n?```/g, "")
+              .trim();
+            const suggestedFreelancerIds = JSON.parse(cleanText);
+
+            // Find freelancers by their IDs
+            const suggestedFreelancers = await Freelancer.find({
+              _id: { $in: suggestedFreelancerIds },
+            }).select("-password -encryptedPrivateKey");
+
+            return res.status(200).json({
+              status: "Success",
+              data: {
+                freelancers: suggestedFreelancers,
+                pagination: {
+                  total: suggestedFreelancers.length,
+                  page: 1,
+                  limit: 10,
+                  pages: Math.ceil(suggestedFreelancers.length / 10),
+                },
+              },
+            });
+          }
+        }
+
+        // If we get here, the AI response wasn't in the expected format
+        throw new Error("Invalid AI response format");
+
+      } catch (error) {
+        lastError = error;
+        console.error(`Attempt ${retryCount + 1} failed:`, error.message);
+        
+        if (error.response?.status === 503) {
+          // Wait before retrying (exponential backoff)
+          const waitTime = Math.pow(2, retryCount) * 1000;
+          await new Promise(resolve => setTimeout(resolve, waitTime));
+          retryCount++;
+          continue;
+        }
+        
+        // For other errors, don't retry
+        break;
       }
     }
 
+    // If all retries failed, return a fallback response
+    console.error("All AI attempts failed:", lastError);
+    
+    // Fallback: Return freelancers based on skills match
+    const skillMatches = allFreelancers.filter(freelancer => {
+      if (!skills || !freelancer.skills) return false;
+      return skills.some(skill => 
+        freelancer.skills.some(freelancerSkill => 
+          freelancerSkill.toLowerCase().includes(skill.toLowerCase())
+        )
+      );
+    });
+
     return res.status(200).json({
       status: "Success",
+      message: "Using fallback matching due to AI service unavailability",
       data: {
-        freelancers: [],
+        freelancers: skillMatches,
         pagination: {
-          total: 0,
+          total: skillMatches.length,
           page: 1,
           limit: 10,
-          pages: 0,
+          pages: Math.ceil(skillMatches.length / 10),
         },
       },
     });
+
   } catch (error) {
     console.error("Error in AI freelancer suggestion:", error);
     return res.status(500).json({
