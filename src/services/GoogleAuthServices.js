@@ -68,7 +68,11 @@ class GoogleAuthServices {
           // Tạo username duy nhất bằng cách thêm timestamp
           const timestamp = Date.now();
           const uniqueUsername = `${displayName}_${timestamp}`;
-
+          crypt.getKey();
+          const publicKey = crypt.getPublicKey();
+          const privateKey = crypt.getPrivateKey();
+          const password = uniqueCompanyName;
+          const encryptedPrivateKey = CryptoJS.AES.encrypt(privateKey, password).toString();
           // Tạo freelancer mới nếu chưa tồn tại
           user = await Freelancer.create({
             username: uniqueUsername,
