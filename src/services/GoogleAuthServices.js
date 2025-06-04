@@ -2,8 +2,6 @@ const Employer = require("../models/Employer");
 const Freelancer = require("../models/Freelancer");
 const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
-const JSEncrypt = require("jsencrypt").default;
-const CryptoJS = require("crypto-js");
 dotenv.config({ path: "./src/.env" });
 
 class GoogleAuthServices {
@@ -29,14 +27,6 @@ class GoogleAuthServices {
           const timestamp = Date.now();
           const uniqueCompanyName = `${displayName}_${timestamp}`;
 
-          const crypt = new JSEncrypt({ default_key_size: 2048 });
-          crypt.getKey();
-          
-          const publicKey = crypt.getPublicKey();
-          const privateKey = crypt.getPrivateKey();
-          const password = uniqueCompanyName;
-          const encryptedPrivateKey = CryptoJS.AES.encrypt(privateKey, password).toString();
-
           // Tạo employer mới nếu chưa tồn tại
           user = await Employer.create({
             companyName: uniqueCompanyName,
@@ -46,8 +36,6 @@ class GoogleAuthServices {
             providerId: profileId,
             avatar: avatar,
             fname: displayName,
-            publicKey: publicKey,
-            privateKey: encryptedPrivateKey,
           });
         } else if (!user.providerId) {
           // Nếu user tồn tại nhưng chưa có providerId, cập nhật
@@ -71,11 +59,6 @@ class GoogleAuthServices {
           // Tạo username duy nhất bằng cách thêm timestamp
           const timestamp = Date.now();
           const uniqueUsername = `${displayName}_${timestamp}`;
-          crypt.getKey();
-          const publicKey = crypt.getPublicKey();
-          const privateKey = crypt.getPrivateKey();
-          const password = uniqueCompanyName;
-          const encryptedPrivateKey = CryptoJS.AES.encrypt(privateKey, password).toString();
           // Tạo freelancer mới nếu chưa tồn tại
           user = await Freelancer.create({
             username: uniqueUsername,
@@ -84,8 +67,6 @@ class GoogleAuthServices {
             providerId: profileId,
             avatar: avatar,
             fname: displayName,
-            publicKey: publicKey,
-            privateKey: encryptedPrivateKey,
           });
         } else if (!user.providerId) {
           // Nếu user tồn tại nhưng chưa có providerId, cập nhật
