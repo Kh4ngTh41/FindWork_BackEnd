@@ -1,11 +1,10 @@
 # 
- ███████╗ ██╗  ███╗   ██╗   ╔█████╗       
+ ███████╗ ██╗  ███╗   ██╗   ╔█████╗                
  ██╔════╝ ██║  █████╗ ██║  ║██╔═██╗ 
  █████╗    ██║  ██╔██╗ ██║  ║██║  ██║ 
- ██╔══╝    ██║  ██║╚██╗██║  ║██║  ██║ 
+ ██╔══╝    ██║  ██║╚██╗██║  ║██║  ██║           
  ██║        ██║  ██║ ╚████║  ╚█████╔╝ 
  ╚═╝        ╚═╝  ╚═╝  ╚═══╝   ╚════╝  
-
 ██╗    ██╗   ██████╗  ██████╗   ██╗  ██╗
 ██║    ██║  ██╔══██╗  ██╔══██╗  ██║ ██╔╝
 ██║ █╗ ██║ ██║   ██║  ██████╔╝  █████╔╝ 
@@ -13,63 +12,64 @@
 ╚███╔███╔╝ ╚█████╔╝ ██  ╚██║   ██║  ██╗
  ╚══╝╚══╝   ╚════╝   ╚═╝  ╚═╝   ╚═╝  ╚═╝
 
----
-
-## Giới thiệu dự án Findwork
-
-Đây là dự án học kỳ môn NT219.P22.ANTT với tên gọi **Findwork** - một nền tảng kết nối freelancer và nhà tuyển dụng.
 
 ---
 
-## Thành viên nhóm
+## Project Introduction: Findwork
 
-* **Phan Anh Khôi** (23520787)
-* **Thái Tuấn Khang** (23520709)
-* **Nguyễn Minh Nguyên** (23521046)
-* **Nguyễn Phương Nguyên** (23521048)
+This is a semester project for the NT219.P22.ANTT course, titled **Findwork** - a platform designed to connect freelancers and employers.
 
 ---
 
-## Phân công công việc
+## Team Members
 
-Dưới đây là chi tiết phân công các chức năng chính trong dự án:
-
-### Chức năng cơ bản
-
-* **Đăng ký, Đăng nhập (Email, Google, Facebook)**: Thái Tuấn Khang, Nguyễn Minh Nguyên, Phan Anh Khôi.
-* **Hồ sơ Freelancer**: Kỹ năng, kinh nghiệm, dự án đã làm: Nguyễn Minh Nguyên, Nguyễn Phương Nguyên.
-* **Hồ sơ Nhà tuyển dụng**: Thông tin công ty, danh sách dự án: Nguyễn Minh Nguyên.
-* **Tìm kiếm và đề xuất công việc**: Nguyễn Minh Nguyên, Nguyễn Phương Nguyên.
-* **Freelancer tìm kiếm dự án**: Theo kỹ năng, ngân sách, thời gian: Nguyễn Phương Nguyên.
-* **Nhà tuyển dụng đăng dự án**: Với yêu cầu chi tiết: Nguyễn Minh Nguyên.
-* **Hệ thống giao tiếp và làm việc**: Phan Anh Khôi.
-    * **Chat trực tiếp** giữa freelancer và nhà tuyển dụng: Phan Anh Khôi.
-    * **Gửi file, tài liệu dự án** qua nền tảng: Phan Anh Khôi.
-* **Thanh toán & Bảo mật**: Thái Tuấn Khang, Nguyễn Minh Nguyên, Phan Anh Khôi.
-    * **Hỗ trợ thanh toán qua PayPal**: Thái Tuấn Khang, Nguyễn Minh Nguyên.
-    * **Hệ thống đánh giá** freelancer và nhà tuyển dụng: Thái Tuấn Khang.
-
-### Chức năng nâng cao (Sử dụng AI)
-
-* **AI đề xuất freelancer**: Matching dựa trên kỹ năng, kinh nghiệm phù hợp với dự án: Nguyễn Minh Nguyên, Nguyễn Phương Nguyên.
-* **AI gợi ý mức lương hợp lý**: Dựa trên dữ liệu thị trường: Nguyễn Minh Nguyên.
-* **Hệ thống kiểm tra chất lượng CV**: AI đánh giá độ phù hợp với công việc: Nguyễn Phương Nguyên.
-* **Chatbot AI hỗ trợ tìm việc**: Freelancer có thể hỏi chatbot về cơ hội việc làm: Phan Anh Khôi, Thái Tuấn Khang.
+* **Phan Anh Khoi** (23520787)
+* **Thai Tuan Khang** (23520709)
+* **Nguyen Minh Nguyen** (23521046)
+* **Nguyen Phuong Nguyen** (23521048)
 
 ---
 
-## Thống kê đóng góp mã nguồn
+## Task Assignment
+
+Here's a detailed breakdown of the main functionalities and their assignments within the project:
+
+### Core Features
+
+* **Registration, Login (Email, Google, Facebook)**: Thai Tuan Khang, Nguyen Minh Nguyen, Phan Anh Khoi.
+* **Freelancer Profile**: Skills, experience, completed projects: Nguyen Minh Nguyen, Nguyen Phuong Nguyen.
+* **Employer Profile**: Company information, project listings: Nguyen Minh Nguyen.
+* **Job Search and Recommendation**: Nguyen Minh Nguyen, Nguyen Phuong Nguyen.
+* **Freelancer Project Search**: By skill, budget, time: Nguyen Phuong Nguyen.
+* **Employer Project Posting**: With detailed requirements: Nguyen Minh Nguyen.
+* **Communication and Collaboration System**: Phan Anh Khoi.
+    * **Direct chat** between freelancers and employers: Phan Anh Khoi.
+    * **File and document sharing** within the platform: Phan Anh Khoi.
+* **Payment & Security**: Thai Tuan Khang, Nguyen Minh Nguyen, Phan Anh Khoi.
+    * **PayPal payment support**: Thai Tuan Khang, Nguyen Minh Nguyen.
+    * **Freelancer and employer rating system**: Thai Tuan Khang.
+
+### Advanced Features (AI Integration)
+
+* **AI Freelancer Recommendation**: Matching based on skills and experience for projects: Nguyen Minh Nguyen, Nguyen Phuong Nguyen.
+* **AI Salary Suggestion**: Based on market data: Nguyen Minh Nguyen.
+* **CV Quality Check System**: AI evaluates suitability for jobs: Nguyen Phuong Nguyen.
+* **AI Chatbot for Job Search**: Freelancers can ask the chatbot about job opportunities: Phan Anh Khoi, Thai Tuan Khang.
+
+---
+
+## Source Code Contribution Statistics
 
 ### Frontend
 
-| Metrics           | Value   |
-| :---------------- | :------ |
-| Total Commits     | 65      |
-| Total ctimes      | 2079    |
-| Total Files       | 147     |
+| Metrics             | Value   |
+| :------------------ | :------ |
+| Total Commits       | 65      |
+| Total Ctimes        | 2079    |
+| Total Files         | 147     |
 | Total Lines of Code | 18691   |
 
-**Đóng góp theo tác giả:**
+**Author Contributions:**
 
 | Author           | Lines of Code | Commits | Files | Distribution (LoC/Commits/Files) |
 | :--------------- | :------------ | :------ | :---- | :------------------------------- |
@@ -80,18 +80,18 @@ Dưới đây là chi tiết phân công các chức năng chính trong dự án
 
 ### Backend
 
-| Metrics         | Value |
-| :-------------- | :---- |
-| Total Commits   | 81    |
+| Metrics       | Value |
+| :------------ | :---- |
+| Total Commits | 81    |
 
-**Đóng góp commits theo tác giả:**
+**Author Commit Contributions:**
 
 * **Kh4ngTh41**: 54 commits
 * **pak**: 12 commits
 * **nguyenminhnguyen**: 8 commits
 * **rayrom**: 7 commits
 
-**Đóng góp dòng code theo tác giả:**
+**Author Line of Code Contributions:**
 
 | Author           | Lines Added | Lines Deleted | Net Lines |
 | :--------------- | :---------- | :------------ | :-------- |
@@ -102,4 +102,4 @@ Dưới đây là chi tiết phân công các chức năng chính trong dự án
 
 ---
 
-Cảm ơn bạn đã xem qua README này! Nếu có bất kỳ câu hỏi nào về dự án, đừng ngần ngại liên hệ với chúng tôi.
+Thank you for reviewing this README! If you have any questions about the project, feel free to contact us.
